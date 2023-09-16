@@ -22,7 +22,9 @@ const Library = () => {
       <div
         className="
       flex flex-col gap-y-2
-      mt-4 px-3">liiiiiiiiiiiiist</div>
+      mt-4 px-3">
+        liiiiiiiiiiiiist
+      </div>
     </div>
   );
 };
