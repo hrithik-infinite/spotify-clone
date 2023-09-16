@@ -1,3 +1,4 @@
+import SideBar from "@/components/SideBar";
 import "./globals.css";
 import { Figtree } from "next/font/google";
 
@@ -11,7 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body className={font.className}>
+        <SideBar>{children}</SideBar>
+      </body>
     </html>
   );
 }
