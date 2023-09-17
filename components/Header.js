@@ -6,11 +6,22 @@ import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import Button from "./Button";
 import useAuthModal from "@/hooks/UseAuthModal";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useUser } from "@/hooks/useUser";
+import { FaUserAlt } from "react-icons/fa";
 
 const Header = ({ children, className }) => {
   const authModal = useAuthModal();
   const router = useRouter();
-  const handleLogout = () => {};
+  const supabaseClient = useSupabaseClient();
+  const { user, subscription } = useUser();
+  const handleLogout = async () => {
+    const { error } = await supabaseClient.auth.signOut();
+    router.refresh();
+    if (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div
@@ -87,27 +98,40 @@ const Header = ({ children, className }) => {
           className="
         flex justify-between items-center
         gap-x-4">
-          <>
-            <div>
-              <Button
-                onClick={authModal.onOpen}
-                className="
+          {user ? (
+            <div
+              className="
+            flex gap-x-4 items-center">
+              <Button onClick={handleLogout} className="bg-white px-6 py-2">
+                Logout
+              </Button>
+              <Button onClick={() => router.push("/account")} className="bg-white">
+                <FaUserAlt />
+              </Button>
+            </div>
+          ) : (
+            <>
+              <div>
+                <Button
+                  onClick={authModal.onOpen}
+                  className="
               bg-transparent
               text-neutal-300
                font-medium">
-                Sign Up
-              </Button>
-            </div>
-            <div>
-              <Button
-                onClick={authModal.onOpen}
-                className="
+                  Sign Up
+                </Button>
+              </div>
+              <div>
+                <Button
+                  onClick={authModal.onOpen}
+                  className="
               bg-white
               px-6 py-2 ">
-                Log In
-              </Button>
-            </div>
-          </>
+                  Log In
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </div>
       {children}
