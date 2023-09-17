@@ -9,6 +9,7 @@ import useAuthModal from "@/hooks/UseAuthModal";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
 import { FaUserAlt } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 
 const Header = ({ children, className }) => {
   const authModal = useAuthModal();
@@ -19,7 +20,9 @@ const Header = ({ children, className }) => {
     const { error } = await supabaseClient.auth.signOut();
     router.refresh();
     if (error) {
-      console.log(error);
+      toast.error(error.message);
+    } else {
+      toast.success("Logged Out!");
     }
   };
 
