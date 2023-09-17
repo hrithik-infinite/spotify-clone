@@ -18,8 +18,8 @@ export default function RootLayout({ children }) {
       <body className={font.className}>
         <ToasterProvider />
         <SupabaseProvider>
-          <ModalProvider />
           <UserProvider>
+            <ModalProvider />
             <SideBar>{children}</SideBar>
           </UserProvider>
         </SupabaseProvider>
