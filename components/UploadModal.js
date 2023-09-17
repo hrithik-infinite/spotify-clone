@@ -67,7 +67,7 @@ const UploadModal = () => {
         title: values.title,
         author: values.author,
         image_path: imgData.path,
-        song_path: songData.path,
+        songs_path: songData.path,
       });
       if (supabaseError) {
         setIsLoading(false);
@@ -75,7 +75,7 @@ const UploadModal = () => {
       }
       router.refresh();
       setIsLoading(false);
-      toast.success("SOng Created!");
+      toast.success("Song Created!");
       reset();
       uploadModal.onClose();
     } catch (error) {
