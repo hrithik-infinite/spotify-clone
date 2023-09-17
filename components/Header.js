@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
+import Button from "./Button";
 
 const Header = ({ children, className }) => {
   const router = useRouter();
@@ -80,7 +81,33 @@ const Header = ({ children, className }) => {
             <BiSearch className="text-black" size={20} />
           </button>
         </div>
+        <div
+          className="
+        flex justify-between items-center
+        gap-x-4">
+          <>
+            <div>
+              <Button
+                className="
+              bg-transparent
+              text-neutal-300
+               font-medium">
+                Sign Up
+              </Button>
+            </div>
+            <div>
+              <Button
+                onClick={() => {}}
+                className="
+              bg-white
+              px-6 py-2 ">
+                Log In
+              </Button>
+            </div>
+          </>
+        </div>
       </div>
+      {children}
     </div>
   );
 };
