@@ -11,41 +11,40 @@ const Song = {
 
 const Product = {
   id: "",
-  active: undefined,
-  name: undefined,
-  description: undefined,
-  image: undefined,
-  metadata: Stripe.Metadata,
+  active: false, // Default value added
+  name: "",
+  description: "",
+  image: "",
+  metadata: Stripe.Metadata || {}, // Default value added
 };
 
-const Price = {
-  id: "",
-  product_id: undefined,
-  active: undefined,
-  description: undefined,
-  unit_amount: undefined,
-  currency: undefined,
-  type: Stripe.Price.Type,
-  interval: Stripe.Price.Recurring.Interval,
-  interval_count: undefined,
-  trial_period_days: null,
-  metadata: Stripe.Metadata,
-  products: {},
-};
-
+function Price() {
+  this.id = "";
+  this.product_id = "";
+  this.active = false; // Default value added
+  this.description = "";
+  this.unit_amount = 0; // Default value added
+  this.currency = "";
+  this.type = "";
+  this.interval = "";
+  this.interval_count = 0; // Default value added
+  this.trial_period_days = null;
+  this.metadata = Stripe.Metadata || {}; // Default value added
+  this.products = {};
+}
 const Customer = {
   id: "",
-  stripe_customer_id: undefined,
+  stripe_customer_id: "",
 };
 
 const UserDetails = {
   id: "",
   first_name: "",
   last_name: "",
-  full_name: undefined,
-  avatar_url: undefined,
-  billing_address: Stripe.Address,
-  payment_method: Stripe.PaymentMethod[Stripe.PaymentMethod.Type],
+  full_name: "",
+  avatar_url: "",
+  billing_address: {},
+  payment_method: "",
 };
 
 const ProductWithPrice = {
@@ -55,15 +54,15 @@ const ProductWithPrice = {
 const Subscription = {
   id: "",
   user_id: "",
-  status: undefined,
-  metadata: Stripe.Metadata,
+  status: "",
+  metadata: Stripe.Metadata || {}, // Default value added
   price_id: "",
-  quantity: undefined,
-  cancel_at_period_end: undefined,
+  quantity: 0, // Default value added
+  cancel_at_period_end: false, // Default value added
   created: "",
   current_period_start: "",
   current_period_end: "",
-  ended_at: undefined,
+  ended_at: null,
   cancel_at: "",
   canceled_at: "",
   trial_start: "",
