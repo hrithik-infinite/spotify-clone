@@ -16,7 +16,6 @@ export const revalidate = 0;
 
 export default async function RootLayout({ children }) {
   const userSongs = await getSongsByUserId();
-  console.log(userSongs);
   return (
     <html lang="en">
       <body className={font.className}>
