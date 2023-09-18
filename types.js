@@ -11,25 +11,25 @@ const Song = {
 
 const Product = {
   id: "",
-  active: false, // Default value added
+  active: false,
   name: "",
   description: "",
   image: "",
-  metadata: Stripe.Metadata || {}, // Default value added
+  metadata: Stripe.Metadata || {},
 };
 
 function Price() {
   this.id = "";
   this.product_id = "";
-  this.active = false; // Default value added
+  this.active = false;
   this.description = "";
-  this.unit_amount = 0; // Default value added
+  this.unit_amount = 0;
   this.currency = "";
   this.type = "";
   this.interval = "";
-  this.interval_count = 0; // Default value added
+  this.interval_count = 0;
   this.trial_period_days = null;
-  this.metadata = Stripe.Metadata || {}; // Default value added
+  this.metadata = Stripe.Metadata || {};
   this.products = {};
 }
 const Customer = {
@@ -55,10 +55,10 @@ const Subscription = {
   id: "",
   user_id: "",
   status: "",
-  metadata: Stripe.Metadata || {}, // Default value added
+  metadata: Stripe.Metadata || {},
   price_id: "",
-  quantity: 0, // Default value added
-  cancel_at_period_end: false, // Default value added
+  quantity: 0,
+  cancel_at_period_end: false,
   created: "",
   current_period_start: "",
   current_period_end: "",
