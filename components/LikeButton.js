@@ -1,12 +1,11 @@
-"use client";
-
-import useAuthModal from "@/hooks/UseAuthModal";
-import { useUser } from "@/hooks/useUser";
-import { useSessionContext } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { useRouter } from "next/navigation"; // Changed from "next/"
+import { toast } from "react-hot-toast";
+import { useSessionContext } from "@supabase/auth-helpers-react";
+
+import { useUser } from "@/hooks/useUser";
+import useAuthModal from "@/hooks/UseAuthModal";
 
 const LikeButton = ({ songId }) => {
   const router = useRouter();
@@ -16,24 +15,31 @@ const LikeButton = ({ songId }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    if (!user.id) {
+    if (!user?.id) {
       return;
     }
+
     const fetchData = async () => {
       const { data, error } = await supabaseClient.from("liked_songs").select("*").eq("user_id", user.id).eq("song_id", songId).single();
+
       if (!error && data) {
         setIsLiked(true);
       }
     };
+
     fetchData();
   }, [songId, supabaseClient, user?.id]);
+
   const Icon = isLiked ? AiFillHeart : AiOutlineHeart;
-  const handleLiked = async () => {
+
+  const handleLike = async () => {
     if (!user) {
-      return authModal.open();
+      return authModal.onOpen();
     }
+
     if (isLiked) {
       const { error } = await supabaseClient.from("liked_songs").delete().eq("user_id", user.id).eq("song_id", songId);
+
       if (error) {
         toast.error(error.message);
       } else {
@@ -44,20 +50,29 @@ const LikeButton = ({ songId }) => {
         song_id: songId,
         user_id: user.id,
       });
+
       if (error) {
         toast.error(error.message);
       } else {
         setIsLiked(true);
-        toast.success("Liked!");
+        toast.success("Success");
       }
     }
 
     router.refresh();
   };
+
   return (
-    <button className="hover:opacity-75 transition" onClick={handleLiked}>
+    <button
+      className="
+        cursor-pointer 
+        hover:opacity-75 
+        transition
+      "
+      onClick={handleLike}>
       <Icon color={isLiked ? "#22c55e" : "white"} size={25} />
     </button>
   );
 };
+
 export default LikeButton;
