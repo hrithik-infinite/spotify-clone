@@ -7,7 +7,9 @@ import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import Slider from "./Slider";
 import usePlayer from "@/hooks/UsePlayer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useSound from "use-sound";
+import { setConfig } from "next/config";
 
 const PlayerContent = ({ song, songUrl }) => {
   const player = usePlayer();
@@ -38,6 +40,40 @@ const PlayerContent = ({ song, songUrl }) => {
       return player.setId(player.ids[player.ids.length - 1]);
     }
     player.setId(previousSong);
+  };
+
+  const [play, { pause, sound }] = useSound(songUrl, {
+    volume: volume,
+    onplay: () => setIsPlaying(true),
+    onend: () => {
+      setIsPlaying(false);
+      onPlayNext();
+    },
+    onpause: () => setIsPlaying(false),
+    format: ["mp3"],
+  });
+
+  useEffect(() => {
+    sound?.play();
+    return () => {
+      sound?.unload();
+    };
+  }, [sound]);
+
+  const handlePlay = () => {
+    if (!isPlaying) {
+      play();
+    } else {
+      pause();
+    }
+  };
+
+  const toggleMute = () => {
+    if (volume === 0) {
+      setVolume(1);
+    } else {
+      setVolume(0);
+    }
   };
 
   return (
@@ -93,7 +129,7 @@ const PlayerContent = ({ song, songUrl }) => {
             "
         />
         <div
-          onClick={() => {}}
+          onClick={handlePlay}
           className="
               flex 
               items-center 
@@ -120,8 +156,8 @@ const PlayerContent = ({ song, songUrl }) => {
       </div>
       <div className="hidden md:flex w-full justify-end pr-2">
         <div className="flex items-center gap-x-2 w-[120px]">
-          <VolumeIcon onClick={() => {}} className="cursor-pointer" size={34} />
-          <Slider />
+          <VolumeIcon onClick={toggleMute} className="cursor-pointer" size={34} />
+          <Slider value={volume} onChange={(value) => setVolume(value)} />
         </div>
       </div>
     </div>
