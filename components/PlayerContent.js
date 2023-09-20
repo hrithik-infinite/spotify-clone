@@ -1,17 +1,18 @@
 "use client";
-
+import useSound from "use-sound";
+import { useEffect, useState } from "react";
+import { BsPauseFill, BsPlayFill } from "react-icons/bs";
+import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
+import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
+import usePlayer from "@/hooks/UsePlayer";
 import LikeButton from "./LikeButton";
 import MediaItem from "./MediaItem";
-import { BsPauseFill, BsPlayFill } from "react-icons/bs";
-import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
-import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import Slider from "./Slider";
-import usePlayer from "@/hooks/UsePlayer";
-import { useEffect, useState } from "react";
-import useSound from "use-sound";
-import { setConfig } from "next/config";
 
 const PlayerContent = ({ song, songUrl }) => {
+  console.log("song " + JSON.stringify(song));
+  console.log("songurl " + JSON.stringify(songUrl));
+
   const player = usePlayer();
   const [volume, setVolume] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -42,7 +43,7 @@ const PlayerContent = ({ song, songUrl }) => {
     player.setId(previousSong);
   };
 
-  const [play, { pause, sound }] = useSound(songUrl, {
+  const [play, { pause, sound }] = useSound(songUrl.publicUrl, {
     volume: volume,
     onplay: () => setIsPlaying(true),
     onend: () => {
@@ -86,74 +87,77 @@ const PlayerContent = ({ song, songUrl }) => {
       </div>
       <div
         className="
-            flex 
-            md:hidden 
-            col-auto 
-            w-full 
-            justify-end 
-            items-center
-          ">
+          flex 
+          md:hidden 
+          col-auto 
+          w-full 
+          justify-end 
+          items-center
+        ">
         <div
-          onClick={() => {}}
+          onClick={handlePlay}
           className="
-              h-10
-              w-10
-              flex 
-              items-center 
-              justify-center 
-              rounded-full 
-              bg-white 
-              p-1 
-              cursor-pointer
-            ">
+            h-10
+            w-10
+            flex 
+            items-center 
+            justify-center 
+            rounded-full 
+            bg-white 
+            p-1 
+            cursor-pointer
+          ">
           <Icon size={30} className="text-black" />
         </div>
       </div>
       <div
-        className=" hidden
-            h-full
-            md:flex 
-            justify-center 
-            items-center 
-            w-full 
-            max-w-[722px] 
-            gap-x-6">
+        className="
+          hidden
+          h-full
+          md:flex 
+          justify-center 
+          items-center 
+          w-full 
+          max-w-[722px] 
+          gap-x-6
+        ">
         <AiFillStepBackward
           onClick={onPlayPrevious}
           size={30}
           className="
-              text-neutral-400 
-              cursor-pointer 
-              hover:text-white 
-              transition
-            "
+            text-neutral-400 
+            cursor-pointer 
+            hover:text-white 
+            transition
+          "
         />
         <div
           onClick={handlePlay}
           className="
-              flex 
-              items-center 
-              justify-center
-              h-10
-              w-10 
-              rounded-full 
-              bg-white 
-              p-1 
-              cursor-pointer
-            ">
+            flex 
+            items-center 
+            justify-center
+            h-10
+            w-10 
+            rounded-full 
+            bg-white 
+            p-1 
+            cursor-pointer
+          ">
           <Icon size={30} className="text-black" />
         </div>
         <AiFillStepForward
           onClick={onPlayNext}
           size={30}
           className="
-              text-neutral-400 
-              cursor-pointer 
-              hover:text-white 
-              transition
-            "
+            text-neutral-400 
+            cursor-pointer 
+            hover:text-white 
+            transition
+          "
         />
       </div>
+
       <div className="hidden md:flex w-full justify-end pr-2">
         <div className="flex items-center gap-x-2 w-[120px]">
           <VolumeIcon onClick={toggleMute} className="cursor-pointer" size={34} />
