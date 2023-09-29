@@ -35,7 +35,7 @@ export default async function Home() {
           <h1 className="text-white text-2xl font-semibold">Newest Song</h1>
         </div>
         <div>
-          <PageContent songs = {songs}/>
+          <PageContent songs={songs} />
         </div>
       </div>
     </div>
