@@ -16,6 +16,7 @@
     "@supabase/auth-helpers-react": "^0.4.2",
     "@supabase/auth-ui-react": "^0.4.4",
     "@supabase/auth-ui-shared": "^0.1.6",
+    "@supabase/supabase-js": "^2.37.0",
     "autoprefixer": "10.4.15",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
