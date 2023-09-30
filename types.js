@@ -18,20 +18,21 @@ const Product = {
   metadata: Stripe.Metadata || {},
 };
 
-function Price() {
-  this.id = "";
-  this.product_id = "";
-  this.active = false;
-  this.description = "";
-  this.unit_amount = 0;
-  this.currency = "";
-  this.type = "";
-  this.interval = "";
-  this.interval_count = 0;
-  this.trial_period_days = null;
-  this.metadata = Stripe.Metadata || {};
-  this.products = {};
-}
+const Price = {
+  id: "",
+  product_id: "",
+  active: false,
+  description: "",
+  unit_amount: 0,
+  currency: "",
+  type: "",
+  interval: "",
+  interval_count: 0,
+  trial_period_days: null,
+  metadata: Stripe.Metadata || {},
+  products: {},
+};
+
 const Customer = {
   id: "",
   stripe_customer_id: "",
@@ -67,7 +68,7 @@ const Subscription = {
   canceled_at: "",
   trial_start: "",
   trial_end: "",
-  prices: new Price(),
+  prices: Price,
 };
 
 module.exports = {
