@@ -1,14 +1,17 @@
 "use client";
 
+import usePlayer from "@/hooks/UsePlayer";
 import useLoadImage from "@/hooks/useLoadImage";
 import Image from "next/image";
 
 const MediaItem = ({ data, onClick }) => {
+  const player = usePlayer();
   const imageUrl = useLoadImage(data);
   const handleClick = () => {
     if (onClick) {
       return onClick(data.id);
     }
+    return player.setId(data.id);
   };
   return (
     <div
